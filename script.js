@@ -1,4 +1,4 @@
-// (c) Anuflora Systems 
+// (c) Anuflora Systems (test)
 const balance = document.getElementById('balance');
 const money_plus = document.getElementById('deposit');
 const money_minus = document.getElementById('loan');
