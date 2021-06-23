@@ -88,4 +88,6 @@ function filterTransaction(e) {
 init();
 //form.addEventListener('submit', filterTransaction);
 b1.addEventListener('click',filterTransaction);
-b2.addEventListener('click',init);  //no need to call init. when no event handler it will reload/referesh the page
+b2.addEventListener('click', init);
+//actually no need to call init for b2. when no event handler it will reload/referesh the page
+//don't even need the event listener actually. default behavior is refresh page.
