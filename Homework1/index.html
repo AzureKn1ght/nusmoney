@@ -5,15 +5,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://d3js.org/d3.v4.min.js"></script>
     <link rel="stylesheet" href="style.css" />
     <title>NUS Money</title>
   </head>
   <body>
-    <h2> NUS Money</h2>
+    <h2>NUS MONEY</h2>
 
     <div class="container">
       <h4>Your Balance</h4>
       <h1 id="balance">$0.00</h1>
+
+      <svg width="350" height="400"></svg>
 
       <div class="inc-exp-container">
         <div>
@@ -33,21 +36,22 @@
         </li> -->
       </ul>
 
-        
       <h3>Customer Details</h3>
       <form id="form">
         <div class="form-control">
-          <label for="custname">Customer Name</label>    
-          <input type="text" id="custname" placeholder="Enter customername..." />
+          <label for="custname">Customer Name</label>
+          <input
+            type="text"
+            id="custname"
+            placeholder="Enter customername..."
+          />
         </div>
-        <button id = "b1" class="btn">Submit</button>
-        <button id = "b2" class="btn">Reset</button>
+        <button id="b1" class="btn">Submit</button>
+        <button id="b2" class="btn">Reset</button>
         <div class="form-control">
           <p id="reco" class="blinking"></p>
         </div>
-       
       </form>
-    
     </div>
 
     <script src="script.js"></script>

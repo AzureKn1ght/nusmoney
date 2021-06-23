@@ -19,6 +19,8 @@ const TransactionDataAll = [
   { id: 6, customername: "Jill", bank: "UOB", deposit: 7000, loan: 4000 },
 ];
 
+var total_deposit = 0;
+var total_loan = 0;
 var TransactionData = null;
 
 // Add transactions to DOM list
@@ -40,10 +42,8 @@ function addTransactionDOM(transaction) {
 function updateValues() {
   const deposits = TransactionData.map((transaction) => transaction.deposit);
   const loans = TransactionData.map((transaction) => transaction.loan);
-  const total_deposit = deposits
-    .reduce((acc, item) => (acc += item), 0)
-    .toFixed(2);
-  const total_loan = loans.reduce((acc, item) => (acc += item), 0).toFixed(2);
+  total_deposit = deposits.reduce((acc, item) => (acc += item), 0).toFixed(2);
+  total_loan = loans.reduce((acc, item) => (acc += item), 0).toFixed(2);
   const bal = total_deposit - total_loan;
   balance.innerText = `$${bal}`;
   money_plus.innerText = `$${total_deposit}`;
@@ -52,6 +52,7 @@ function updateValues() {
     bal >= 0
       ? "You Have Sound Financial Health"
       : "Your Financial Health is Weak";
+  drawChart();
 }
 
 function init() {
@@ -65,8 +66,8 @@ function init() {
 
 function filterTransaction(e) {
   e.preventDefault(); //to prevent form from submitting and refreshing the page
-  if (!custname.value) return;
-    
+  if (!custname.value) return; //to prevent empty input from submitting
+
   list.innerHTML = "";
   reco.innerHTML = "";
   TransactionData = TransactionDataAll.filter(
@@ -74,6 +75,69 @@ function filterTransaction(e) {
   );
   TransactionData.forEach(addTransactionDOM);
   updateValues();
+}
+
+function drawChart() {
+  let data = [
+    { label: "Deposit", amt: total_deposit },
+    { label: "Loan", amt: total_loan },
+  ];
+
+  var svg = d3.select("svg"),
+    width = svg.attr("width"),
+    height = svg.attr("height"),
+    radius = Math.min(width, height) / 2;
+
+  //The <g> SVG element is a container used to group other SVG elements.
+  var g = svg
+    .append("g") //g is a general graphics element with no shape yet
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+  // set the color scale
+  var color = d3.scaleOrdinal(["#00E676", "#FF1744"]);
+
+  // Compute the position of each group on the pie:
+  var pie = d3.pie().value(function (d) {
+    //value of pie comes from data
+    return d.amt;
+  });
+  //radius for the arc
+  var path = d3
+    .arc()
+    .outerRadius(radius - 10)
+    .innerRadius(0);
+
+  //radius for the label
+  var label = d3
+    .arc()
+    .outerRadius(radius)
+    .innerRadius(radius - 180);
+
+  var arc = g
+    .selectAll(".arc")
+    .data(pie(data))
+    .enter()
+    .append("g")
+    .attr("class", "arc");
+
+  arc
+    .append("path")
+    .attr("d", path)
+    .attr("fill", function (d) {
+      return color(d.data.label);
+    });
+
+  console.log(arc);
+
+  arc
+    .append("text")
+    .attr("transform", function (d) {
+      return "translate(" + label.centroid(d) + ")";
+    })
+
+    .text(function (d) {
+      return d.data.label;
+    });
 }
 
 /* if ((custname = "Jack") && (pwd = "123")) {
