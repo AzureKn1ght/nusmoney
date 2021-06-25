@@ -8,6 +8,7 @@
 
 * {
   box-sizing: border-box;
+  transition: all 0.5s ease-in-out;
 }
 
 body {
@@ -80,6 +81,7 @@ label {
 }
 
 input[type="text"],
+input[type="password"],
 input[type="number"] {
   border: 1px solid #dedede;
   border-radius: 2px;

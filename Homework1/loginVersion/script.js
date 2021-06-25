@@ -5,6 +5,10 @@ const money_minus = document.getElementById("loan");
 const list = document.getElementById("list");
 const form = document.getElementById("form");
 const custname = document.getElementById("custname");
+const password = document.getElementById("password");
+const details = document.getElementById("details");
+const logoutBtn = document.getElementById("logoutBtn");
+const loginForm = document.getElementById("login");
 
 const reco = document.getElementById("reco");
 const b1 = document.getElementById("b1");
@@ -66,7 +70,7 @@ function init() {
 
 function filterTransaction(e) {
   e.preventDefault(); //to prevent form from submitting and refreshing the page
-  if (!custname.value) return; //to prevent empty input from submitting
+  if (!custname.value || !password.value) return; //to prevent empty input from submitting
 
   list.innerHTML = "";
   reco.innerHTML = "";
@@ -75,7 +79,17 @@ function filterTransaction(e) {
   );
   TransactionData.forEach(addTransactionDOM);
   updateValues();
+  login();
 }
+
+function login()
+{
+  showHide(loginForm);
+  showHide(details);
+  showHide(logoutBtn);
+}
+
+
 
 function drawChart() {
   let data = [
@@ -139,6 +153,20 @@ function drawChart() {
       return d.data.label;
     });
 }
+
+
+function showHide(x)
+{
+  console.log(x);
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+  console.log("showHide")
+}
+
+
 
 /* if ((custname = "Jack") && (pwd = "123")) {
 
