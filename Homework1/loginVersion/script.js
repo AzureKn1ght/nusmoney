@@ -9,6 +9,7 @@ const password = document.getElementById("password");
 const details = document.getElementById("details");
 const logoutBtn = document.getElementById("logoutBtn");
 const loginForm = document.getElementById("login");
+const titleName = document.getElementById("titleName");
 
 const reco = document.getElementById("reco");
 const b1 = document.getElementById("b1");
@@ -74,6 +75,7 @@ function filterTransaction(e) {
 
   list.innerHTML = "";
   reco.innerHTML = "";
+  titleName.innerHTML = `Hello, ${custname.value}`;
   TransactionData = TransactionDataAll.filter(
     (tran) => tran.customername.toUpperCase() == custname.value.toUpperCase()
   );
@@ -82,14 +84,12 @@ function filterTransaction(e) {
   login();
 }
 
-function login()
-{
+//Login function to hide/show stuff
+function login() {
   showHide(loginForm);
   showHide(details);
   showHide(logoutBtn);
 }
-
-
 
 function drawChart() {
   let data = [
@@ -154,28 +154,13 @@ function drawChart() {
     });
 }
 
-
-function showHide(x)
-{
-  console.log(x);
+function showHide(x) {
   if (x.style.display === "none") {
     x.style.display = "block";
   } else {
     x.style.display = "none";
   }
-  console.log("showHide")
 }
 
-
-
-/* if ((custname = "Jack") && (pwd = "123")) {
-
-  filterTransaction();
-} */
-
 init();
-//form.addEventListener('submit', filterTransaction);
 b1.addEventListener("click", filterTransaction);
-b2.addEventListener("click", init);
-//actually no need to call init for b2. when no event handler it will reload/referesh the page
-//don't even need the event listener actually. default behavior is refresh page.
